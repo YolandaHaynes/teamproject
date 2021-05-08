@@ -11,19 +11,41 @@ module.exports = {
         }
     },
 
+    getLikedPosts: async(req, res) => {
+        const uid = req.user.id
+        try {
+            const userInfo = await User.findOne({ _id: uid })
+            console.log("User", uid, userInfo)
+            if (userInfo.likedPosts) {
+                const postItems = userInfo.likedPosts
+                postItems.sort((a, b) => {
+                        if (a.postDate < b.postDate) { return -1 }
+                        if (a.postDate > b.postDate) { return 1 }
+                        return 0
+                    })
+                    // const postItems = await Post.find({_id:uid}).sort({postDate: 'desc'}).lean()
+                res.render('feed.ejs', { posts: postItems, user: req.user })
+            } else {
+                res.redirect('/post')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    },
+
     addLike: async(req, res) => {
         try {
             const uid = req.user.id
             const postId = req.body.postId
-            //get the post with the matching id the add it to array of liked posts in the user model
-            const post = await Post.findOne({_id: postId})
+                //get the post with the matching id the add it to array of liked posts in the user model
+            const post = await Post.findOne({ _id: postId })
             console.log(post)
-            //check if the post is in the users liked posts if it's not increment the associated post likecount by one
-            const result = await User.findOne({_id:uid, likedPosts: {$elemMatch: {_id:postId}}})
-            console.log(result)
-            if(!result) {
-                await Post.updateOne({_id:post._id}, {likeCount: post.likeCount + 1})
-                await User.updateOne({_id:uid}, {likedPosts:post})
+                //check if the post is in the users liked posts if it's not increment the associated post likecount by one
+            const result = await User.findOne({ _id: uid, likedPosts: { $elemMatch: { _id: `ObjectId${postId}` } } })
+            console.log("Result", result)
+            if (!result) {
+                await Post.updateOne({ _id: post._id }, { $push: { likeCount: post.likeCount + 1 } })
+                await User.updateOne({ _id: uid }, { $push: { likedPosts: post } })
             }
             res.json("Add Like")
         } catch (error) {
