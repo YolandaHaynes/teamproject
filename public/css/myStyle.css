@@ -1,64 +1,60 @@
+.posts-container {
+    background-color: #7A9E7E !important;
+    border-radius: 15px;
+    box-shadow: 0 30px 60px 0 rgba(255, 255, 255, 0.089);
+}
+.row {
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    height: 100%;
+    max-width: 18rem !important;
+    padding-top: 1em;
+    background-color: #D8DDEF !important;
+    border-radius: 15px !important;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.5);
+}
+
+.card-img-top {
+    height: 190px;
+    border-radius: 15px !important;
+    /* padding: 5px 0 0 0; */
+}
+
 img {
     max-width: 100%;
+    margin: 0 auto;
 }
 
-.container {
-    margin: 20px auto 0 auto;
-
-}
-
-.post-container {
-    width: 90%;
-    margin: 0 auto 20px auto;
-}
-
-@media screen and (max-witdh:1080px) {
-    .container {
-        width: 800px;
-    }
-}
-
-@media  screen and (max-width: 300px) {
-    .container {
-        width: 250px;
-    }
-}
-
-.row, .col {
-    display: flex;
-}
-
-.col {
-    flex-direction: column;
-}
-
-.row-max {
-    width: 100%;
-}
 .btn {
+    width: 26.66% !important;
+    margin-right: 5px;
     outline: none;
     border-style: none;
-    border-radius: 0;
+    border-radius: 0 !important;
 }
 
 .btn:first-child {
-    border-radius: 0 0 0 5px;
+    border-radius: 15px 0 0 15px !important;
 }
 
 .btn:last-child {
-    border-radius: 0 0 5px 0;
+    border-radius: 0 15px 15px 0 !important;
 }
 
-.md-3 {
-    width: 33%;
+.addLike {
+    background-color: cornflowerblue;
 }
 
-.md-2 {
-    width: 25%;
+.addLike i {
+    color: tomato;
+    height: 20px;
 }
 
-.image-holder {
-    background-color: cadetblue;
-    border-radius: 10px 10px 0 0;
-    width: 100%;
+/* Feed Styles */
+
+.post-time {
+    color: rgba(0,0,0, 0.3)
 }

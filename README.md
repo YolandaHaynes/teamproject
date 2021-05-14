@@ -37,6 +37,11 @@ cloudinary, connect-mongo, dotenv, ejs, express, express flash, express-session,
 - Create a `.env` file and add the following as `key: value` 
   - PORT: 2121 (can be any port example: 3000) 
   - DB_STRING: `your database URI` 
+  - clientID: `your client secret from microsoft azure`
+  - clientSecret: `your client secret for you application`
+  - CLOUD_NAME: `your cloud name from cloudinary`
+  - API_KEY: `your api key from cloudinary`
+  - API_SECRET: `your api secret from cloudinary`
  ---
  
  Have fun testing and improving it! 😎

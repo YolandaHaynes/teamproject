@@ -15,7 +15,7 @@ module.exports = {
         const uid = req.user.id
         try {
             const userInfo = await User.findOne({ _id: uid })
-            console.log("User", uid, userInfo)
+            // console.log("User", uid, userInfo)
             if (userInfo.likedPosts) {
                 const postItems = userInfo.likedPosts
                 postItems.sort((a, b) => {
@@ -41,10 +41,15 @@ module.exports = {
             const post = await Post.findOne({ _id: postId })
             console.log(post)
                 //check if the post is in the users liked posts if it's not increment the associated post likecount by one
-            const result = await User.findOne({ _id: uid, likedPosts: { $elemMatch: { _id: `ObjectId${postId}` } } })
+            // const result = await User.findOne({ _id: uid, likedPosts: { $elemMatch: { _id: `ObjectId${postId}` } } })
+            const result = await User.findOne({ _id: uid})
+
             console.log("Result", result)
-            if (!result) {
-                await Post.updateOne({ _id: post._id }, { $push: { likeCount: post.likeCount + 1 } })
+            const isValid = result.likedPosts.every(post => post._id != postId);
+            console.log(isValid)
+            if (isValid) {
+                post.likeCount+=1
+                await Post.updateOne({ _id: post._id }, { likeCount:  post.likeCount })
                 await User.updateOne({ _id: uid }, { $push: { likedPosts: post } })
             }
             res.json("Add Like")

@@ -11,7 +11,7 @@ exports.creds = {
 
     responseMode: 'form_post',
 
-    redirectUrl: 'http://localhost:2121/auth/openid/return',
+    redirectUrl: 'https://lit-plateau-90992.herokuapp.com/auth/openid/return',
 
     allowHttpForRedirectUrl: true,
 

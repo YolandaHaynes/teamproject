@@ -5,51 +5,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Posts</title>
 
-    <link rel="stylesheet" href="css/reset.css">
-    <!-- <link rel="stylesheet" href="css/style.css"> -->
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- CSS Styles Link-->
     <link rel="stylesheet" href="css/myStyle.css">
-    <script src="https://kit.fontawesome.com/56bcff738d.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap 5.0.0 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark" style="justify-content: flex-end;">
-        <a href="/post" style="margin-right: 10px;">Posts</a>
-        <a href="/feed" style="margin-right: 10px;">Feed</a>
-        <a href="/logout" style="margin-right: 10px;">Logout</a>
-    </nav>
-    <div class="container row">
-            <% posts.forEach(post => { %>
-                <div class="card col offset-2" style="max-width: 18rem;">
-                    <% if(post.imageUrl) { %>
-                        <img src='<%=post.imageUrl%>' class="card-img-top" alt="..." style="height: 190px; border-radius: 8px 8px 0 0; padding: 5px 0 0 0;">
-                    <% } %>
+    <div class="container-fluid">
+        <header>
+            <%- include('partials/header') -%>
+        </header>
+        <div class="container container-fluid">
+            <h2 class="text-light">
+                <%= user.userName %>
+            </h2>
+
+            <form action="/post/createPost" enctype="multipart/form-data" method='POST'>
+                <input type="text" name="imageTitle" class="form-control">
+                <input type="file" name='myFile' class="form-control">
+                <input type="submit" class="btn btn-dark">
+            </form>
+            <div class="posts-container container-fluid row row-cols-1 row-cols-sm-2 row-cols-md-3 mt-3 pt-3">
+                <% posts.forEach(post=> { %>
+                    <div class="card col offset-1 mb-4">
+                        <% if(post.imageUrl) { %>
+                            <img src='<%=post.imageUrl%>' class="card-img-top" alt="...">
+                        <% } %>
                     <div class="card-body">
-                      <h5 class="card-title" style="text-align: center;"><%=post.title%></h5>
+                        <h5 class="card-title text-center">
+                            <%=post.title%>
+                        </h5>
                         <div class="row">
-                            <button class="del btn btn-danger col-4"><i class="fas fa-trash-alt"></i></button>
-                            <button class="edit btn btn-primary col-4" data-id='<%=post._id%>'><i class="fas fa-edit"></i></button>
-                            <button class="addLike btn col-4" style="background-color: cornflowerblue;"><i class="fas fa-heart" style="color: tomato; height: 20px;"></i></button>
+                            <button class="del btn btn-danger col-4">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <button class="edit btn btn-primary col-4" data-id='<%=post._id%>'>
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="addLike btn col-4" style="background-color: cornflowerblue;">
+                                <i class="fas fa-heart" ></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-            <% }) %>
+                <% }) %>  
+        </div>             
     </div>
-
-    <h2>
-        <%= user.userName %>
-    </h2>
-
-    <form action="/post/createPost" enctype="multipart/form-data" method='POST'>
-        <input type="text" name="imageTitle">
-        <input type="file" name='myFile'>
-        <input type="submit">
-    </form>
-
-    <a href="/logout">Logout</a>
 
     <script src="js/main.js"></script>
 </body>

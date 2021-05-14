@@ -5,41 +5,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
+        <header>
+            <%- include('partials/header') -%>
+        </header>
         <div class="login-card">
-            <div>
-                <img src="" alt="A travel icon">
-            </div>
             <div>
                 <h1>Login</h1>
             </div>
             <div>
                 <% if (locals.messages.errors) { %>
-                    <% messages.errors.forEach( el => { %>
+                    <% messages.errors.forEach( el=> { %>
                         <div class="alert alert-danger">
                             <%= el.msg %>
                         </div>
-                        <% }) %>
-                            <% } %>
-                                <% if (locals.messages.info) { %>
-                                    <% messages.info.forEach( el => { %>
-                                        <div class="alert alert-danger">
-                                            <%= el.msg %>
-                                        </div>
-                                        <% }) %>
-                                            <% } %>
-                                                <form action="/login" method="POST">
-                                                    <input type="email" name="email" placeholder="Email">
-                                                    <input type="password" name="password" placeholder="Password">
-                                                    <input type="submit">
-                                                </form>
-                                                <a href="/auth/login"><img src="./images/ms-symbollockup_signin_light_short.png"></a>
+                    <% }) %>
+                <% } %>
+                
+                <% if (locals.messages.info) { %>
+                    <% messages.info.forEach( el=> { %>
+                        <div class="alert alert-danger">
+                            <%= el.msg %>
+                        </div>
+                    <% }) %>
+                <% } %>
+                <form action="/login" method="POST">
+                    <input type="email" name="email" placeholder="Email" class="form-control">
+                    <input type="password" name="password" placeholder="Password" class="form-control">
+                    <input type="submit" class="btn btn-dark">
+                </form>
+                <a href="/auth/login">
+                    <img src="./images/ms-symbollockup_signin_light_short.png">
+                </a>
             </div>
         </div>
     </div>
